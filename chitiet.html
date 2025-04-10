@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chi tiết sản phẩm</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      background: white;
+      display: flex;
+      gap: 40px;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .left {
+      flex: 1;
+    }
+
+    .main-img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .thumbnails {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .thumbnails img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .right {
+      flex: 1;
+    }
+
+    .right h2 {
+      margin: 0 0 10px;
+      font-size: 28px;
+    }
+
+    .price {
+      font-size: 22px;
+      color: red;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .desc, .specs {
+      font-size: 16px;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .buy-btn {
+      background: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .buy-btn:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="left">
+      <img id="mainImage" class="main-img" src="" alt="Ảnh sản phẩm">
+      <div class="thumbnails" id="thumbnails"></div>
+    </div>
+
+    <div class="right">
+      <h2 id="product-name">Tên sản phẩm</h2>
+      <div class="price" id="product-price">Giá: ...</div>
+      <div class="desc" id="product-desc">Mô tả sản phẩm...</div>
+      <div class="specs" id="product-specs">Thông số kỹ thuật...</div>
+      <button class="buy-btn">Mua ngay</button>
+    </div>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get("name");
+    const price = Number(urlParams.get("price")).toLocaleString();
+    const desc = urlParams.get("desc") || "Không có mô tả.";
+    const image = urlParams.get("image") || "";
+    const specs = urlParams.get("specs") || "";
+    const thumbsParam = urlParams.get("thumbs");
+
+    document.getElementById("product-name").textContent = name;
+    document.getElementById("product-price").textContent = `Giá: ${price} VND`;
+    document.getElementById("product-desc").textContent = desc;
+    document.getElementById("product-specs").textContent = specs;
+    document.getElementById("mainImage").src = image;
+
+    const thumbnails = thumbsParam ? thumbsParam.split(",") : [];
+    const thumbnailContainer = document.getElementById("thumbnails");
+
+    if (thumbnails.length === 0 && image) thumbnails.push(image);
+
+    thumbnails.forEach((src) => {
+      const img = document.createElement("img");
+      img.src = src.trim();
+      img.onclick = () => {
+        document.getElementById("mainImage").src = src;
+      };
+      thumbnailContainer.appendChild(img);
+    });
+  </script>
+
+</body>
+</html>

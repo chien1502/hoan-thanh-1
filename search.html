@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Kết quả tìm kiếm - Vua Đồ Câu</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #1a4d2e;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    img {
+      max-width: 300px;
+      border-radius: 8px;
+      margin: 20px auto;
+      display: block;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #1a4d2e;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 24px;
+      color: #333;
+    }
+
+    p.price {
+      font-size: 20px;
+      font-weight: bold;
+      color: #e53935;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: 0.3s ease;
+      cursor: pointer;
+    }
+
+    .back-btn {
+      background-color: #999;
+      color: white;
+    }
+
+    .back-btn:hover {
+      background-color: #666;
+    }
+
+    .cart-btn {
+      background-color: #e53935;
+      color: white;
+      margin-left: 10px;
+    }
+
+    .cart-btn:hover {
+      background-color: #b71c1c;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 14px;
+      color: #999;
+    }
+
+    .message {
+      margin-top: 15px;
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Kết quả tìm kiếm</h1>
+</header>
+
+<div class="container">
+  <div id="product-result"></div>
+  <a href="index.html" class="btn back-btn">⬅ Quay về trang chủ</a>
+  <button class="btn cart-btn" onclick="addToCart()">🛒 Thêm vào giỏ</button>
+  <div id="message" class="message"></div>
+</div>
+
+<footer>
+  &copy; 2025 Vua Đồ Câu. All rights reserved.
+</footer>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get("name");
+  const price = params.get("price");
+  const image = params.get("image");
+
+  const resultDiv = document.getElementById("product-result");
+
+  if (name && price && image) {
+    resultDiv.innerHTML = `
+      <h2>${name}</h2>
+      <img src="${image}" alt="${name}">
+      <p class="price">${price}</p>
+    `;
+  } else {
+    resultDiv.innerHTML = "<p>Không có thông tin sản phẩm.</p>";
+  }
+
+  function addToCart() {
+    const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+    const product = { name, price, image };
+    cartItems.push(product);
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    document.getElementById("message").textContent = "✅ Đã thêm vào giỏ hàng!";
+  }
+</script>
+
+</body>
+</html>

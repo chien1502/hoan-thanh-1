@@ -5,15 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vua Đồ Câu</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
     <!-- Header -->
     <header class="header">
         <img src="anh3.webp" alt="Vua Đồ Câu" class="logo">
-        <input type="text" placeholder="Tìm sản phẩm..." class="search-bar">
-        <button class="cart-button">🛒 Giỏ hàng (0) - 0 VND</button>
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+            <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm chính xác">
+            <button onclick="searchProducts()">🔍</button>
+
+            </button>
+          </div>
+       <!-- Thay nút giỏ hàng -->
+       <button onclick="showCartPopup()" class="cart-button">
+        🛒 Giỏ hàng (<span id="cart-count">0</span>) - <span id="cart-total">0</span> VND
+        </button>
+        <div class="cart-dropdown" id="cart-dropdown" style="display: none;">
+            <ul id="cart-items"></ul>
+            <p><strong>Tổng tiền:</strong> <span id="cart-total-price">0</span> VND</p>
+        </div>
     </header>
+    
 
     <!-- Navbar -->
     <nav class="navbar">
@@ -31,66 +45,156 @@
     <section class="product-section">
         <h2>🔥 <span class="highlight">Top bán chạy nhất</span></h2>
         <div class="product-container">
-            <div class="product">
+            <div class="product-card product" data-name="Daiwa Tatula TW 80" data-price="3500000" data-image="anh4.jpg">
                 <img src="anh4.jpg" alt="Daiwa Tatula TW 80">
                 <h3>22 Daiwa Tatula TW 80</h3>
                 <p class="price">3,500,000 VND</p>
-                <button class="btn">Xem chi tiết</button>
+                <a href="chitiet.html?name=Daiwa%20Tatula%20TW%2080&price=3500000&image=anh4.jpg&desc=M%C3%A1y%20c%C3%A2u%20ngang%20b%E1%BB%81n%20b%E1%BB%89%2C%20ph%C3%B9%20h%E1%BB%A3p%20n%C6%B0%E1%BB%9Bc%20ng%E1%BB%8Dt%20l%E1%BA%ABn%20n%C6%B0%E1%BB%9Bc%20m%E1%BA%B7n.">Xem chi tiết</a>
+                <button class="add-to-cart">➕</button>
             </div>
-            <div class="product">
+            <div class="product-card" 
+                data-name="22 Daiwa Tatula TW 80" 
+                data-price="3500000" 
+                data-image="anh4.jpg">
+            </div>
+
+            <div class="product-card product" data-name="Cần Câu Cá Tầm Xanh" data-price="2950000" data-image="anh5.jpg">
                 <img src="anh5.jpg" alt="Cần Câu Cá Tầm Xanh">
                 <h3>Cần Câu Cá Tầm Xanh Chí Tôn</h3>
                 <p class="price">2,950,000 VND</p>
-                <button class="btn">Xem chi tiết</button>
+                <a href="chitiet.html?name=C%E1%BA%A7n%20C%C3%A2u%20C%C3%A1%20T%E1%BA%
+                A7m%20Xanh&price=2950000&image=anh5.jpg&desc=C%E1%BA%A7n%20c%C3%A2u%20
+                chuy%C3%AAn%20d%E1%BB%A5ng%20cho%20c%C3%A1%20t%E1%BA%A7m%2C%20thi%E1%BA
+                %BFt%20k%E1%BA%BF%20ch%E1%BA%AFc%20ch%E1%BA%AFn%2C%20%C4%91%E1%BB%99%20
+                cong%20linh%20ho%E1%BA%A1t.">Xem chi tiết</a>
+                <button class="add-to-cart">➕</button>
+                <div class="product-card" 
+                    data-name="Cần Câu Cá Tầm Xanh Chí Tôn" 
+                    data-price="2950000 VND" 
+                    data-image="anh5.jpg">
+                </div>
             </div>
-            <div class="product">
+            <div class="product-card product" data-name="Cần Lure Shimano" data-price="1450000" data-image="anh6.jpg">
                 <img src="anh6.jpg" alt="Cần Lure Shimano">
                 <h3>Cần Lure Shimano 22 Majestic XT</h3>
                 <p class="price">1,450,000 VND</p>
-                <button class="btn">Xem chi tiết</button>
+                <a href="chitiet.html?name=C%E1%BA%A7n%20Lure%20Shimano&price=1450000&image=anh6.jpg&desc=D%C3%B2ng%20c%E1%BA%A7n%20lure%20Shimano%20cao%20c%E1%BA%A5p%2C%20nh%E1%BA%B9%20v%C3%A0%20b%E1%BB%81n.">Xem chi tiết</a>
+                <button class="add-to-cart">➕</button>
+                <div class="product-card" 
+                    data-name="Cần Câu Cá Tầm Xanh Chí Tôn" 
+                    data-price="1,450,000 VND" 
+                    data-image="anh6.jpg">
+                </div>
             </div>
-            <div class="product">
+            <div class="product-card product" data-name="Shimano Scorpion DC" data-price="5900000" data-image="anh7.jpg">
                 <img src="anh7.jpg" alt="Shimano Scorpion DC">
                 <h3>Máy câu ngang Shimano 21 Scorpion DC</h3>
                 <p class="price">5,900,000 VND</p>
-                <button class="btn">Xem chi tiết</button>
+                <a href="chitiet.html?name=Shimano%20Scorpion%20DC&price=5900000&image=anh7.jpg&desc=M%C3%A1y%20c%C3%A2u%20s%E1%BB%AD%20d%E1%BB%A5ng%20c%C3%B4ng%20ngh%E1%BB%87%20DC%20gi%C3%BAp%20ki%E1%BB%83m%20so%C3%A1t%20m%E1%BB%93i%20ch%C3%ADnh%20x%C3%A1c.">Xem chi tiết</a>
+                <button class="add-to-cart">➕</button>
+                <div class="product-card" 
+                    data-name="Máy câu ngang Shimano 21 Scorpion DC" 
+                    data-price="5,900,000 VND" 
+                    data-image="anh7.jpg">
+                </div>
             </div>
-            <div class="product">
+            <div class="pproduct-card product" data-name="Máy Câu Ngang Daiwa PR" data-price="950000" data-image="anh8.jpg">
                 <img src="anh8.jpg" alt="Máy Câu Ngang Daiwa PR">
                 <h3>Máy Câu Ngang Daiwa PR</h3>
                 <p class="price">950,000 VND</p>
-                <button class="btn">Xem chi tiết</button>
+                <a href="chitiet.html?name=M%C3%A1y%20C%C3%A2u%20Ngang%20Daiwa%20PR&
+                price=950000&image=anh8.jpg&desc=Gi%C3%A1%20r%E1%BA%BB%2C%20hi%E1%BB%
+                87u%20qu%E1%BA%A3%2C%20ph%C3%B9%20h%E1%BB%A3p%20ng%C6%B0%E1%BB%9Di%20m
+                %E1%BB%9Bi%20b%E1%BA%AFt%20%C4%91%E1%BA%A7u.">Xem chi tiết</a>
+                <button class="add-to-cart">➕</button>
+                <div class="product-card" 
+                    data-name="Máy Câu Ngang Daiwa PR" 
+                    data-price="950,000 VND" 
+                    data-image="anh8.jpg">
+                </div>
             </div>
-            <div class="product">
-                <img src="anh9.jpg" alt="Dây PE YGK X-Braid">
+            <div class="product-card product" data-name="Dây PE YGK X-Braid Upgrade X8" data-price="650000" data-image="anh9.jpg">
+                <img src="anh9.jpg" alt="Dây PE YGK X-Braid Upgrade X8">
                 <h3>Dây PE YGK X-Braid Upgrade X8</h3>
                 <p class="price">650,000 VND</p>
-                <button class="btn">Xem chi tiết</button>
+                <a href="chitiet.html?name=D%C3%A2y%20PE%20YGK%20X-Braid%20Upgrade%
+                20X8&price=650000&image=anh9.jpg&desc=D%C3%A2y%20c%C3%A2u%20si%C3%AAu
+                %20b%E1%BB%81n%20v%E1%BB%9Bi%208%20l%C3%B5i%20%C4%91an%20ch%E1%BA%B7t%
+                2C%20th%C6%B0%C6%A1ng%20hi%E1%BB%87u%20Nh%E1%BA%ADt%20B%E1%BA%A3n.">Xem chi tiết</a>
+                <button class="add-to-cart">➕</button>
+                <div class="product-card" 
+                    data-name="Dây PE YGK X-Braid Upgrade X8" 
+                    data-price="650,000 VND" 
+                    data-image="anh9.jpg">
+                </div>
             </div>
-            <div class="product">
-                <img src="anh10.jpg" alt="Mồi Nhái Hơi ToMan">
-                <h3>Mồi Nhái Hơi ToMan</h3>
+            <div class="product-card product" data-name="Mồi Nhái Hơi Toman" data-price="100000" data-image="anh10.jpg">
+                <img src="anh10.jpg" alt="Mồi Nhái Hơi Toman">
+                <h3>Mồi Nhái Hơi Toman</h3>
                 <p class="price">100,000 VND</p>
-                <button class="btn">Xem chi tiết</button>
+                <a href="chitiet.html?name=M%E1%BB%93i%20Nh%C3%A1i%20H%C6%A1i%20Toman&
+                price=100000&image=anh10.jpg&desc=M%E1%BB%93i%20gi%E1%BA%A3%20nh%C3%A1i
+                %20h%C6%A1i%20n%E1%BB%95i%2C%20k%C3%ADch%20th%C3%ADch%20c%C3%A1%20l%E1%
+                BB%9Bn%20t%E1%BA%A5n%20c%C3%B4ng.">Xem chi tiết</a>
+                <button class="add-to-cart">➕</button>
+                <div class="product-card" 
+                    data-name="Mồi Nhái Hơi Toman" 
+                    data-price="100,000 VND" 
+                    data-image="anh10.jpg">
+                </div>
             </div>
-            <div class="product">
-                <img src="anh11.jpg" alt="Phụ Kiện Cần Câu">
-                <h3>Combo Phụ Kiện</h3>
-                <p class="price">2,500,000 VND</p>
-                <button class="btn">Xem chi tiết</button>
+            <div class="product-card product" data-name="Combo Cần Và Phụ Kiện" data-price="750000" data-image="anh11.jpg">
+                <img src="anh11.jpg" alt="Combo Cần Và Phụ Kiện">
+                <h3>Combo Cần Và Phụ Kiện</h3>
+                <p class="price">750,000 VND</p>
+                <a href="chitiet.html?name=Combo%20C%E1%BA%A7n%20V%C3%A0%20Ph%E1%BB%A5%
+                20Ki%E1%BB%87n&price=750000&image=anh11.jpg&desc=B%E1%BB%99%20combo%20%
+                C4%91%E1%BA%A7y%20%C4%91%E1%BB%A7%20g%E1%BB%93m%20c%E1%BA%A7n%2C%20m%C3
+                %A1y%20v%C3%A0%20ph%E1%BB%A5%20ki%E1%BB%87n%20c%C3%A2u%20c%C6%A1%20b%E1%BA%A3n.">Xem chi tiết</a>
+                <button class="add-to-cart">➕</button>
+                <div class="product-card" 
+                    data-name="Combo Cần Và Phụ Kiện" 
+                    data-price="750,000 VND VND" 
+                    data-image="anh11.jpg">
+                </div>
             </div>
-            <div class="product">
+            <div class="product-card product" data-name="Kẹp Cá DXTOOL" data-price="350000" data-image="anh12.jpg">
                 <img src="anh12.jpg" alt="Kẹp Cá DXTOOL">
                 <h3>Kẹp Cá DXTOOL</h3>
-                <p class="price">300,000 VND</p>
-                <button class="btn">Xem chi tiết</button>
+                <p class="price">350,000 VND</p>
+                <a href="chitiet.html?name=K%E1%BA%B9p%20C%C3%A1%20DXTOOL&price=350000&image=anh12.jpg&desc=K%E1%BA%B9p%20c%C3%A1%20g%E1%BB%8Dn%20nh%E1%BA%B9%2C%20kh%C3%B4ng%20r%E1%BB%89%2C%20an%20to%C3%A0n%20khi%20b%E1%BA%AFt%20c%C3%A1.">Xem chi tiết</a>
+                <button class="add-to-cart">➕</button>
+                <div class="product-card" 
+                    data-name="Kẹp Cá DXTOOL" 
+                    data-price="350,000 VND VND" 
+                    data-image="anh12.jpg">
+                </div>
             </div>
-            <div class="product">
+            <div class="product-card product" data-name="Gậy Vẩy Trục, Vẩy Mồi Câu Đài VN09" data-price="90000" data-image="anh13.jpg">
                 <img src="anh13.jpg" alt="Gậy Vẩy Trục, Vẩy Mồi Câu Đài VN09">
                 <h3>Gậy Vẩy Trục, Vẩy Mồi Câu Đài VN09</h3>
                 <p class="price">90,000 VND</p>
-                <button class="btn">Xem chi tiết</button>
+                <a href="chitiet.html?name=G%E1%BA%ADy%20V%E1%BA%A9y%20Tr%E1%BB%A5c%2C%20V%E1%BA%A9y%20M%E1%BB%93i%20C%C3%A2u%20%C4%90%C3%A0i%20VN09&price=90000&image=anh13.jpg&desc=G%E1%BA%ADy%20%C4%91a%20n%C4%83ng%20v%E1%BA%A9y%20tr%E1%BB%A5c%20v%C3%A0%20v%E1%BA%A9y%20m%E1%BB%93i%2C%20ti%E1%BB%87n%20l%E1%BB%A3i%20cho%20c%C3%A2u%20%C4%91%C3%A0i.">Xem chi tiết</a>
+                <button class="add-to-cart">➕</button>
+                <div class="product-card" 
+                    data-name="Gậy Vẩy Trục, Vẩy Mồi Câu Đài VN09" 
+                    data-price="90,000 VND" 
+                    data-image="anh13.jpg">
+                </div>
             </div>
+            <div id="cart-popup" class="cart-popup">
+                <div class="cart-header">
+                  <span>🛒 Giỏ hàng</span>
+                  <button id="close-cart" class="close-btn">✖</button>
+                </div>
+                <div id="cart-items" class="cart-items">
+                  <!-- Danh sách sản phẩm sẽ được tạo bằng JavaScript -->
+                </div>
+                <div class="cart-footer">
+                  <div id="cart-total">Tổng tiền: 0đ</div>
+                  <button id="checkout-btn" class="checkout-btn">Thanh toán</button>
+                </div>
+              </div>
             <div class="footer-column">
                 <h3>THÔNG TIN LIÊN LẠC</h3>
                 <ul>
@@ -104,11 +208,161 @@
             <button class="call-button">📞 Gọi 0906151814</button>
             <button class="chat-button">💬 Chat với chúng tôi</button>
         </div>
-        <div class="footer-note">
-            Website đang thử nghiệm giao diện & chờ cấp phép | © 2020 Copyright - Sitemap
-        </div>
         </div>
     </section>
 
+    <!-- Popup chi tiết sản phẩm -->
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <div class="product-detail-modal" id="product-detail-modal">
+        <button class="close-btn" onclick="closeModal()">❌</button>
+        <h2 id="modal-product-name"></h2>
+        <img id="modal-product-image" src="" alt="">
+        <p class="price"><strong>Giá:</strong> <span id="modal-product-price"></span> VND</p>
+    </div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    
+        function updateCart() {
+            let cartCount = cart.length;
+            let total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            document.getElementById("cart-count").innerText = cartCount;
+            document.getElementById("cart-total").innerText = total.toLocaleString();
+    
+            let cartList = document.getElementById("cart-items");
+            cartList.innerHTML = "";
+            cart.forEach((item, index) => {
+                let li = document.createElement("li");
+                li.innerHTML = `
+                    <img src="${item.image}" width="50"> 
+                    ${item.name} - ${item.price.toLocaleString()} VND x${item.quantity}
+                    <button onclick="removeFromCart(${index})">❌</button>
+                `;
+                cartList.appendChild(li);
+            });
+    
+            document.getElementById("cart-total-price").innerText = total.toLocaleString();
+            localStorage.setItem("cart", JSON.stringify(cart));
+        }
+    
+        window.onload = updateCart;
+    
+        document.querySelectorAll(".add-to-cart").forEach(button => {
+            button.addEventListener("click", function () {
+                let product = this.parentElement;
+                let name = product.getAttribute("data-name");
+                let price = parseInt(product.getAttribute("data-price"));
+                let image = product.getAttribute("data-image");
+                let existingItem = cart.find(item => item.name === name);
+                console.log(product);
+                console.log(product);
+                console.log(name);
+                console.log(price);
+                console.log(existingItem);
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({ name, price, image, quantity: 1 });
+                }
+                updateCart();
+                // document.getElementById("cart-dropdown").style.display = "block";
+            });
+        });
+    
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+    
+        function toggleCart() {
+            let cartDropdown = document.getElementById("cart-dropdown");
+            cartDropdown.style.display = (cartDropdown.style.display === "block" ? "none" : "block");
+        }
+    
+        document.querySelectorAll(".view-detail").forEach(button => {
+            button.addEventListener("click", function () {
+                let product = this.parentElement;
+                let name = encodeURIComponent(product.getAttribute("data-name"));
+                let price = product.getAttribute("data-price");
+                let image = encodeURIComponent(product.getAttribute("data-image"));
+                window.open(`chitiet.html?name=${name}&price=${price}&image=${image}`, "_blank");
+            });
+        });
+    
+        function closeModal() {
+            document.getElementById("product-detail-modal").style.display = "none";
+            document.getElementById("modal-overlay").style.display = "none";
+        }
+        function showCartPopup() {
+            const popup = document.getElementById("cart-popup");
+            popup.style.display = "block";
+            renderCartPopup();
+        }
+
+        document.getElementById("close-cart").addEventListener("click", () => {
+            document.getElementById("cart-popup").style.display = "none";
+        });
+        
+
+        function renderCartPopup() {
+            const cartItemsContainer = document.querySelector("#cart-popup .cart-items");
+            const cartTotal = document.querySelector("#cart-popup #cart-total");
+            cartItemsContainer.innerHTML = "";
+
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+
+                const div = document.createElement("div");
+                div.className = "cart-item";
+                div.innerHTML = `
+                    <div style="display:flex; align-items:center; justify-content: space-between; margin-bottom: 8px;">
+                        <img src="${item.image}" width="60" height="60" style="margin-right: 10px;">
+                        <div style="flex: 1;">
+                            <strong>${item.name}</strong><br>
+                            ${item.price.toLocaleString()} VND x ${item.quantity}
+                        </div>
+                        <button onclick="removeFromCart(${index})">❌</button>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(div);
+            });
+
+            cartTotal.textContent = `Tổng tiền: ${total.toLocaleString()}đ`;
+        }
+        function searchProducts() {
+    const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
+    const products = document.querySelectorAll(".product-card");
+
+    let matchedProduct = null;
+
+    products.forEach(product => {
+        const name = product.getAttribute("data-name").trim().toLowerCase();
+        if (name === keyword) {
+            matchedProduct = {
+                name: product.getAttribute("data-name"),
+                price: product.getAttribute("data-price"),
+                image: product.getAttribute("data-image")
+            };
+        }
+    });
+
+    if (matchedProduct) {
+        const query = new URLSearchParams(matchedProduct).toString();
+        window.location.href = `search.html?${query}`;
+    } else {
+        alert("Không tìm thấy sản phẩm phù hợp!");
+    }
+}
+
+
+// Cho phép tìm khi nhấn Enter
+document.getElementById("searchInput").addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+        searchProducts();
+    }
+});
+    </script>
+    
 </body>
 </html>
